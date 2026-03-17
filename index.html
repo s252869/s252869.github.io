@@ -1,12 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SF Crime Visualizations</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>San Francisco Crime Analysis</title>
+
+<style>
+
+body {
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+header{
+    text-align:center;
+    padding:80px 20px;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+}
+
+h1{
+    font-size:2.5rem;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:#1e293b;
+    border-radius:12px;
+    padding:20px;
+    transition:0.2s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+}
+
+.card img{
+    width:100%;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.card a{
+    color:#34d399;
+    text-decoration:none;
+}
+
+footer{
+    text-align:center;
+    padding:40px;
+    color:#94a3b8;
+}
+
+</style>
 </head>
+
 <body>
-  <h1>San Francisco Crime Analysis</h1>
-  <p>This site contains interactive visualizations from my data science course.</p>
+
+<header>
+<h1>San Francisco Crime Analysis</h1>
+<p>Exploring patterns in San Francisco crime data using interactive visualizations.</p>
+</header>
+
+<div class="container">
+
+<div class="grid">
+
+<div class="card">
+<h2>Crimes by Year</h2>
+<p>A static matplotlib visualization showing how crime changes over time.</p>
+<a href="images/crime_by_year.png" target="_blank">Open Figure →</a>
+<img src="images/crime_by_year.png">
+</div>
+
+<div class="card">
+<h2>Crime Trends Over Time</h2>
+<p>An interactive Plotly chart showing trends for selected crime categories.</p>
+<a href="visualizations/crime_trends.html" target="_blank">Open Interactive Chart →</a>
+</div>
+
+<div class="card">
+<h2>Crime Map</h2>
+<p>A Folium map showing the spatial distribution of crime incidents.</p>
+<a href="visualizations/crime_map.html" target="_blank">Open Map →</a>
+</div>
+
+</div>
+
+</div>
+
+<footer>
+Built for Data Science Visualization – Week 7
+</footer>
+
 </body>
 </html>
