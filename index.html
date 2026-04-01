@@ -252,28 +252,33 @@
 
     <!-- ── Section 3 ──────────────────────────────────────────────────────── -->
     <section class="section">
-      <h2>Tenderloin is an outlier — but no district was untouched</h2>
+      <h2>Tenderloin is an outlier — but the story differs by crime type</h2>
       <p>
-        The final figure compares Tenderloin directly to every other district, one at a time, across all four crime categories. Use the dropdown to select any district and see how it compares. The two dots on each row show the percentage change in that category: navy for Tenderloin, orange for the selected district.
+        The final figure compares Tenderloin directly to every other district, one at a time, across all four crime categories. Use the dropdown in the top-right corner of the chart to pick any district. The navy dot is always Tenderloin; the orange dot is the selected district. Dots to the left of zero mean that category <em>decreased</em> after 2018.
       </p>
       <p>
-        The vehicle theft row is the most striking. Against almost every comparison district, Tenderloin's increase is dramatically larger — the gap between the two dots is wide, and Tenderloin's dot sits far to the right. Burglary shows a similar but smaller gap. Assault and robbery, by contrast, show the two dots clustered close together, sometimes with the comparison district even slightly higher than Tenderloin.
+        Start with Bayview — the district with the second-largest overall increase in Figure 2. Even against Bayview, Tenderloin's vehicle theft increase of +359% dwarfs Bayview's +120%. But look at the personal crime rows: Bayview's assault fell by 27% and robbery fell by 22%, while Tenderloin's both <em>increased</em>. These two districts both appear dark on the map above, but they got there in completely different ways.
+      </p>
+      <p>
+        This pattern holds across most districts. For vehicle theft, Tenderloin is an extreme outlier regardless of who you compare it against. For burglary the gap is real but smaller. For assault and robbery the picture reverses — many districts actually saw personal crime fall while Tenderloin's rose, meaning Tenderloin's shift was not simply a more intense version of a city-wide pattern, but something more specific to that place.
       </p>
 
       <figure>
         <iframe src="visualizations/plot3b_tenderloin_vs_city.html"
                 title="Interactive dumbbell chart comparing Tenderloin to other districts by crime category"></iframe>
         <figcaption>
-          <strong>Figure 3.</strong> Percentage change in average annual incidents per crime category, comparing 2007–2017 to 2018–2025. Each row is one category. The navy dot is Tenderloin; the orange dot is the district selected in the dropdown. The wider the gap between the dots, the more Tenderloin diverges from the comparison district. Use the dropdown to explore all districts. The key finding: for vehicle theft, Tenderloin's increase is an extreme outlier regardless of which district you compare it against. For assault and robbery, the difference largely disappears — suggesting the personal crime story is broadly shared across the city, while the non-personal crime story is disproportionately a Tenderloin story.
+          <strong>Figure 3.</strong> Percentage change in average annual incidents per crime category, comparing 2007–2017 to 2018–2025. Each row is one crime category. The navy dot is Tenderloin and the orange dot is the district chosen in the dropdown — use it to compare Tenderloin against any other district in the city. Dots to the left of the zero line represent decreases. The vehicle theft row tells the clearest story: Tenderloin's +359% increase stands far beyond every other district, including Bayview (+120%) which itself saw a large rise. For assault and robbery the pattern flips — many comparison districts show decreases while Tenderloin increased, meaning personal crime in the Tenderloin moved against the city-wide direction.
         </figcaption>
       </figure>
 
       <p>
-        Taken together, the three figures tell a coherent story. San Francisco's crime composition shifted after 2018, with non-personal crime rising and personal crime falling. That shift was geographically uneven, concentrated especially in the Tenderloin. And within that shift, vehicle theft is the category that most distinguishes the Tenderloin from the rest of the city — while personal crime moved in similar ways almost everywhere.
+        Taken together, the three figures tell a coherent story. San Francisco's crime composition shifted after 2018 — non-personal crime rising, personal crime falling. That shift was geographically concentrated, especially in the Tenderloin. And within the Tenderloin, vehicle theft is the dominant driver, increasing at a scale no other district comes close to matching.
       </p>
-
       <p>
-        What drove the Tenderloin's vehicle theft increase specifically is a question this data cannot fully answer. The numbers reflect reported incidents, and reported incidents reflect policing decisions, enforcement priorities, and reporting behavior as much as they reflect actual crime. But the pattern is consistent enough — and distinct enough — to be worth taking seriously.
+        What explains that concentration is a question this data cannot fully resolve on its own — but context helps. Several documented factors converged on the Tenderloin specifically in this period. California's Proposition 47, passed in 2014, reclassified theft under $950 as a misdemeanor; law enforcement and journalists have widely cited its accumulated effect on vehicle break-in rates across the city, with the Tenderloin's density of parked cars making it a particular target.<sup><a href="#ref5">5</a></sup> The COVID-19 lockdowns emptied offices and parking structures in the Tenderloin corridor, concentrating unattended vehicles in an area with reduced foot traffic and natural surveillance — a pattern documented in city-wide burglary data as well.<sup><a href="#ref6">6</a></sup> And in December 2021, Mayor London Breed declared a state of emergency specifically in the Tenderloin, citing open drug markets and street disorder; the increased police presence that followed would itself raise the number of recorded incidents even if underlying behavior stayed flat.<sup><a href="#ref7">7</a></sup>
+      </p>
+      <p>
+        None of these factors fully explains a +359% increase in vehicle theft. But together they illustrate why the Tenderloin is not simply an unlucky neighborhood — it sits at the intersection of several policy changes, enforcement decisions, and structural conditions that all pushed reported incidents upward simultaneously. The data shows the pattern; the context helps explain why it is this district, and not another.
       </p>
     </section>
 
@@ -292,6 +297,15 @@
         </li>
         <li>
           Segel, E. &amp; Heer, J. (2010). Narrative visualization: Telling stories with data. <em>IEEE Transactions on Visualization and Computer Graphics</em>, 16(6). The magazine genre framing used here comes from this paper.
+        </li>
+        <li id="ref5">
+          Dolan, M. &amp; Larimer, S. (2018). <a href="https://www.latimes.com/politics/la-pol-ca-proposition-47-crime-20180213-story.html" target="_blank" rel="noopener">California voters approved Prop. 47 to reduce prison crowding. Did it work?</a> <em>Los Angeles Times</em>. On the relationship between Proposition 47's misdemeanor threshold and property crime reporting.
+        </li>
+        <li id="ref6">
+          Barber, E. (2021). <a href="https://missionlocal.org/2021/04/burglaries-san-francisco-covid/" target="_blank" rel="noopener">Burglaries surged during COVID. Where, and why?</a> <em>Mission Local</em>. Documents the geographic concentration of burglary increases in dense urban corridors during lockdown.
+        </li>
+        <li id="ref7">
+          City and County of San Francisco. (2021). <a href="https://www.sf.gov/news/mayor-london-breed-declares-state-emergency-tenderloin" target="_blank" rel="noopener">Mayor London Breed declares state of emergency in the Tenderloin</a>. Office of the Mayor press release, December 17, 2021.
         </li>
       </ol>
     </section>
