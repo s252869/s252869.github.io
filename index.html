@@ -7,7 +7,7 @@
   <style>
     :root {
       --bg: #f7f6f2;
-      --paper: #ffffff;
+      --paper: rgba(255,255,255,0.72);
       --text: #1f2937;
       --muted: #5b6470;
       --line: #d9dee5;
@@ -93,6 +93,7 @@
       border-radius: 18px;
       padding: 14px 14px 10px;
       box-shadow: 0 12px 35px rgba(31, 41, 55, 0.05);
+      backdrop-filter: blur(4px);
     }
 
     figure img,
@@ -101,7 +102,7 @@
       display: block;
       border: none;
       border-radius: 12px;
-      background: white;
+      background: transparent;
     }
 
     figure iframe { min-height: 620px; }
@@ -219,35 +220,35 @@
     </section>
 
     <section class="section">
-      <h2>The non-personal side of the shift is spatially uneven</h2>
+      <h2>The non-personal increase is not evenly spread across the city</h2>
       <p>
-        To make the geographic part concrete, I focus on vehicle theft, one of the clearest non-personal categories in the dataset. The map below includes incidents from 2018 onward. What stands out is that the post-2018 pattern is not evenly spread across the city.
+        The second figure maps how much non-personal crime changed across police districts. Instead of plotting all incidents directly, it compares the percent change in average annual <strong>vehicle theft</strong> and <strong>burglary</strong> between 2007&ndash;2017 and 2018&ndash;2025.
       </p>
       <p>
-        Instead, vehicle theft clusters in specific areas. That matters because it suggests that the composition shift is not only about time. It also has a spatial structure. Some parts of the city contribute much more than others to the rise in non-personal incidents.
+        This makes the geographic story much easier to read. If the composition shift were uniform, the districts would look fairly similar. They do not. Some districts show much larger increases than others, which suggests that the citywide split in Figure 1 is being driven more strongly in certain places.
       </p>
 
       <figure>
-        <iframe src="visualizations/plot2_vehicle_theft_post2018.html" title="Vehicle theft heatmap in San Francisco after 2018"></iframe>
+        <iframe src="visualizations/plot2_non_personal_change_map.html" title="Where non-personal crime increased the most after 2018"></iframe>
         <figcaption>
-          <strong>Figure 2.</strong> Vehicle theft after 2018 remains geographically concentrated rather than evenly distributed across San Francisco. This suggests that the rise in non-personal crime is tied to particular parts of the city, not a uniform citywide increase.
+          <strong>Figure 2.</strong> This map shows the percent change in average annual non-personal crime, defined here as vehicle theft and burglary, between 2007&ndash;2017 and 2018&ndash;2025. Darker districts experienced larger increases, showing that the post-2018 composition shift was stronger in some parts of San Francisco than in others.
         </figcaption>
       </figure>
     </section>
 
     <section class="section">
-      <h2>The shift also looks different across districts and categories</h2>
+      <h2>Tenderloin shows what the shift looks like on the ground</h2>
       <p>
-        The final figure compares district-category combinations before and after the 2018 shift. Each point is one district paired with one of the four categories used in the story. Points above the diagonal became more common after 2018, while points below became less common.
+        The final figure zooms in on Tenderloin, the district with the largest increase in non-personal crime in the map above. Instead of collapsing everything into one total, it follows the four categories used in the story across time: assault, robbery, burglary, and vehicle theft.
       </p>
       <p>
-        This view matters because it moves beyond the citywide average. It shows which local combinations sit underneath the broader change in composition. If many non-personal points are above the diagonal and many personal points are below it, then the split in Figure 1 is not just a visual impression. It is being produced by multiple local changes at once.
+        The buttons let the reader switch between all categories, only personal crime, and only non-personal crime. This makes it easier to see what kind of local change sits underneath the broader citywide composition shift. The point of the figure is not only that Tenderloin changed, but how it changed.
       </p>
 
       <figure>
-        <iframe src="visualizations/plot3_before_after_scatter.html"> title="Before and after scatterplot of district-category combinations in San Francisco"></iframe>
+        <iframe src="visualizations/plot3_tenderloin_timeline.html" title="Tenderloin crime categories over time"></iframe>
         <figcaption>
-          <strong>Figure 3.</strong> Each point represents a district-category combination, comparing its average annual incident level in 2007&ndash;2017 with its average annual level in 2018&ndash;2025. Points above the diagonal became more common after the shift, while points below it became less common.
+          <strong>Figure 3.</strong> This interactive chart follows the four categories used in the story inside Tenderloin, the district with the largest increase in non-personal crime. The buttons let the reader switch between all categories, only personal crime, and only non-personal crime, making it easier to see how the local pattern changed over time.
         </figcaption>
       </figure>
 
@@ -273,7 +274,7 @@
   </main>
 
   <div class="footer">
-    Built as a short magazine-style data story for DTU. To publish, place this file in your GitHub Pages repository as <code>index.html</code> together with <code>plot1_final_clean.png</code>, <code>plot2_vehicle_theft_post2018.html</code>, and <code>plot3_before_after_scatter.html</code>.
+    Built as a short magazine-style data story for DTU. The static image is stored in the <code>images</code> folder, while the interactive visualizations are stored in <code>visualizations</code>.
   </div>
 </body>
 </html>
