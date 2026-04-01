@@ -105,14 +105,17 @@
       background: transparent;
     }
 
-    figure iframe { min-height: 620px; }
+    figure iframe { min-height: 560px; }
 
     figcaption {
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       color: var(--muted);
       margin-top: 12px;
       padding: 0 6px 4px;
+      line-height: 1.62;
     }
+
+    figcaption strong { color: var(--text); }
 
     .note {
       background: var(--soft-blue);
@@ -169,112 +172,136 @@
       .hero { padding-top: 56px; }
       .section, .references, .footer { padding-left: 18px; padding-right: 18px; }
       figure { padding: 10px 10px 8px; }
-      figure iframe { min-height: 460px; }
+      figure iframe { min-height: 420px; }
     }
   </style>
 </head>
 <body>
+
   <header class="hero">
     <div class="hero-inner">
-      <div class="eyebrow">San Francisco crime data story</div>
+      <div class="eyebrow">San Francisco · Crime Data Analysis · 2007–2025</div>
       <h1>How San Francisco crime composition shifted after 2018</h1>
       <p class="dek">
-        Looking at San Francisco incident reports as one total hides an important change. Around 2018, the composition of incidents begins to shift, and after 2020 that split widens further: non-personal crime stays elevated, while personal crime settles into a lower range.
+        Looking at San Francisco incident reports as a single total hides something important. Around 2018, the mix of reported incidents begins to split: non-personal crime surges while personal crime falls. The city did not simply get more or less dangerous — it got different.
       </p>
-      <div class="meta">By Ylfa Margrét and Tanja Kristín &middot; DTU: Social Data Analysis &amp; Visualization</div>
+      <div class="meta">By Ylfa Margret &amp; Tanja Kristin &middot; DTU Social Data Analysis &amp; Visualization</div>
     </div>
   </header>
 
   <main>
+
+    <!-- ── Introduction ──────────────────────────────────────────────────── -->
     <section class="section">
       <p>
-        It is tempting to talk about crime as if it moves in one direction for the whole city. This dataset suggests something less simple. When I group incidents into <strong>personal crime</strong> and <strong>non-personal crime</strong>, a clear split starts to appear around 2018.
+        The San Francisco Police Department publishes incident reports going back to 2003. Each record is a single reported incident — a burglary, an assault, a vehicle theft — along with a date, a location, and the police district where it was filed. The dataset covers millions of incidents and is publicly available.
       </p>
       <p>
-        I define personal crime here as <strong>assault</strong> and <strong>robbery</strong>. I define non-personal crime as <strong>vehicle theft</strong> and <strong>burglary</strong>. This is not meant to be a perfect legal classification. It is a simple way to compare incidents that involve direct interpersonal harm with incidents that are more tied to property and opportunity.
+        For this story we focus on four categories: <strong>assault</strong> and <strong>robbery</strong>, grouped as <strong>personal crime</strong> because they involve direct harm to a person, and <strong>vehicle theft</strong> and <strong>burglary</strong>, grouped as <strong>non-personal crime</strong> because the harm is primarily to property. This is a deliberate simplification designed to make one specific pattern visible — not a legal classification.
       </p>
       <div class="note">
-        Important caveat: police incident data is not a perfect measure of underlying crime. It reflects reporting, recording, enforcement, and administrative systems as well as behavior itself. The story below should therefore be read as a story about <em>reported incidents</em>, not a complete measure of harm.
+        <strong>A caveat worth reading first.</strong> Police incident data measures what gets reported and recorded, not crime itself. A drop in arrests can reflect a change in enforcement priorities just as easily as a change in behavior. A spike in vehicle theft reports can reflect a real wave of theft, a shift in how the department codes incidents, or both. The patterns below are patterns in <em>reported incidents</em> — keep that distinction in mind.
       </div>
     </section>
 
+    <!-- ── Section 1 ──────────────────────────────────────────────────────── -->
     <section class="section">
       <h2>A visible split starts around 2018</h2>
       <p>
-        The first figure tracks both groups over time and indexes them to the same starting point. That makes it easier to compare change in pattern rather than raw volume. The key point is not that one line is always larger. The key point is that the two groups stop moving together.
+        Before 2018 the two groups move together — rising and falling in roughly the same rhythm across more than a decade. Then around mid-2018 both series spike sharply. What matters is where they land afterward.
       </p>
       <p>
-        Around 2018, both groups spike and then fall, but they do not settle in the same place. After that reset, non-personal crime remains structurally above its earlier level, while personal crime drops below its older range. The period after 2020 widens that gap even more.
+        Non-personal crime rebounds strongly and stays elevated well above its pre-2018 level through the early 2020s before declining again. Personal crime does the opposite: it falls below its historical range and stays there. The COVID period deepens both movements temporarily, but the structural gap was already opening before the pandemic arrived.
       </p>
 
       <figure>
-        <img src="images/plot1_final_clean.png" alt="Indexed line chart showing personal crime and non-personal crime in San Francisco over time" />
+        <img src="images/plot1_static_chart.png"
+             alt="Indexed line chart showing personal and non-personal crime in San Francisco from 2007 to 2025" />
         <figcaption>
-          <strong>Figure 1.</strong> Monthly incident levels are indexed so that the average level in 2007 equals 100. A composition shift starts around 2018, when both groups spike and then fall. After that point, non-personal crime remains elevated relative to its earlier pattern, while personal crime stays lower.
+          <strong>Figure 1.</strong> Monthly incident counts indexed so the 2007 average equals 100 for each group, smoothed with a 6-month rolling average. The two lines track each other from 2007 to 2017, then diverge sharply after the 2018 spike. Non-personal crime (orange) peaks around 2021 before declining, while personal crime (navy) drops and stays below its pre-2018 range throughout. The gap between the lines — not the level of either one — is the main finding.
         </figcaption>
       </figure>
 
       <p>
-        This is why I think the most useful summary is not that crime simply rose or fell. A better summary is that the <strong>mix</strong> of reported incidents changed. The next question is whether that shift is evenly spread across San Francisco or concentrated in particular places.
+        The most honest summary is not that crime rose or fell. It is that the <strong>composition</strong> of reported incidents changed. That raises a geographic question: did this happen everywhere in the city, or was it concentrated in specific places?
       </p>
     </section>
 
+    <!-- ── Section 2 ──────────────────────────────────────────────────────── -->
     <section class="section">
-      <h2>The non-personal increase is not evenly spread across the city</h2>
+      <h2>The increase was concentrated in a handful of districts</h2>
       <p>
-        The second figure maps how much non-personal crime changed across police districts. Instead of plotting all incidents directly, it compares the percent change in average annual <strong>vehicle theft</strong> and <strong>burglary</strong> between 2007&ndash;2017 and 2018&ndash;2025.
+        If the post-2018 shift were uniform across the city, every police district would show a similar increase. The map tells a different story. The Tenderloin — a small, densely policed district near the center of San Francisco — stands out immediately with an increase of over 100%. Most other districts also increased, but by considerably less.
       </p>
       <p>
-        This makes the geographic story much easier to read. If the composition shift were uniform, the districts would look fairly similar. They do not. Some districts show much larger increases than others, which suggests that the citywide split in Figure 1 is being driven more strongly in certain places.
+        This uneven geography matters. It suggests the citywide trend in Figure 1 is being pulled upward by a small number of specific places, not by a broad city-wide change. Hover over any district to see the exact percentage.
       </p>
 
       <figure>
-        <iframe src="visualizations/plot2_non_personal_change_map.html" title="Where non-personal crime increased the most after 2018"></iframe>
+        <iframe src="visualizations/plot2_non_personal_change_map.html"
+                title="Map showing percent change in non-personal crime by SF police district 2007–2025"></iframe>
         <figcaption>
-          <strong>Figure 2.</strong> This map shows the percent change in average annual non-personal crime, defined here as vehicle theft and burglary, between 2007&ndash;2017 and 2018&ndash;2025. Darker districts experienced larger increases, showing that the post-2018 composition shift was stronger in some parts of San Francisco than in others.
+          <strong>Figure 2.</strong> Percentage change in average annual non-personal crime (vehicle theft + burglary) per police district, comparing 2007–2017 to 2018–2025. The Tenderloin, shown in deep red at center, increased by over 100% — more than double any other district. No district shows a decrease, but the range is wide: from around 20% in the lowest districts to over 100% in Tenderloin. Bubble size and colour both encode the same value.
         </figcaption>
       </figure>
+
+      <p>
+        A large percentage increase in the Tenderloin does not by itself prove that more crime is occurring there relative to elsewhere — it could also reflect more reporting, denser officer presence, or changes in how incidents are classified. But it does identify where in the data the shift is most visible, and that points the story toward a specific question: is the Tenderloin genuinely different from the rest of the city, or is it just an extreme version of a city-wide pattern?
+      </p>
     </section>
 
+    <!-- ── Section 3 ──────────────────────────────────────────────────────── -->
     <section class="section">
-      <h2>How much of the pattern depends on where you look?</h2>
+      <h2>Tenderloin is an outlier — but no district was untouched</h2>
       <p>
-        The final figure returns to the same grouped time-series idea as Figure 1, but adds a geographic filter. Instead of treating San Francisco as one single unit, it lets the reader switch between the whole city, the city without Tenderloin, and selected districts.
+        The final figure compares Tenderloin directly to every other district, one at a time, across all four crime categories. Use the dropdown to select any district and see how it compares. The two dots on each row show the percentage change in that category: navy for Tenderloin, orange for the selected district.
       </p>
       <p>
-        This matters because it tests the story directly. If the composition shift disappears as soon as one district is removed, then the citywide pattern would be much less general than it first appears. If it remains visible even after excluding Tenderloin, then the split is broader than one local hotspot.
+        The vehicle theft row is the most striking. Against almost every comparison district, Tenderloin's increase is dramatically larger — the gap between the two dots is wide, and Tenderloin's dot sits far to the right. Burglary shows a similar but smaller gap. Assault and robbery, by contrast, show the two dots clustered close together, sometimes with the comparison district even slightly higher than Tenderloin.
       </p>
 
       <figure>
-        <iframe src="visualizations/plot3_city_selector_timeline.html" title="Interactive composition shift by geographic scope"></iframe>
+        <iframe src="visualizations/plot3b_tenderloin_vs_city.html"
+                title="Interactive dumbbell chart comparing Tenderloin to other districts by crime category"></iframe>
         <figcaption>
-          <strong>Figure 3.</strong> This interactive chart reproduces the grouped time series from Figure 1, but lets the reader change the geographic scope. Comparing all of San Francisco with views such as <em>Without Tenderloin</em> makes it possible to test whether the composition shift is broadly distributed or driven by a small number of districts.
+          <strong>Figure 3.</strong> Percentage change in average annual incidents per crime category, comparing 2007–2017 to 2018–2025. Each row is one category. The navy dot is Tenderloin; the orange dot is the district selected in the dropdown. The wider the gap between the dots, the more Tenderloin diverges from the comparison district. Use the dropdown to explore all districts. The key finding: for vehicle theft, Tenderloin's increase is an extreme outlier regardless of which district you compare it against. For assault and robbery, the difference largely disappears — suggesting the personal crime story is broadly shared across the city, while the non-personal crime story is disproportionately a Tenderloin story.
         </figcaption>
       </figure>
 
       <p>
-        Taken together, the three figures suggest that San Francisco did not simply experience more or less crime after 2018. Instead, the composition of reported incidents changed, and that change was carried by specific categories and specific parts of the city.
+        Taken together, the three figures tell a coherent story. San Francisco's crime composition shifted after 2018, with non-personal crime rising and personal crime falling. That shift was geographically uneven, concentrated especially in the Tenderloin. And within that shift, vehicle theft is the category that most distinguishes the Tenderloin from the rest of the city — while personal crime moved in similar ways almost everywhere.
+      </p>
+
+      <p>
+        What drove the Tenderloin's vehicle theft increase specifically is a question this data cannot fully answer. The numbers reflect reported incidents, and reported incidents reflect policing decisions, enforcement priorities, and reporting behavior as much as they reflect actual crime. But the pattern is consistent enough — and distinct enough — to be worth taking seriously.
       </p>
     </section>
 
+    <!-- ── References ─────────────────────────────────────────────────────── -->
     <section class="references">
       <h2>References</h2>
       <ol>
         <li>
-          DataSF. <a href="https://data.sfgov.org/Public-Safety/Police-Department-Incident-Reports-Historical-2003/tmnf-yvry">Police Department Incident Reports: Historical 2003 to May 2018</a>.
+          DataSF. <a href="https://data.sfgov.org/Public-Safety/Police-Department-Incident-Reports-Historical-2003/tmnf-yvry" target="_blank" rel="noopener">Police Department Incident Reports: Historical 2003 to May 2018</a>. City and County of San Francisco Open Data Portal.
         </li>
         <li>
-          DataSF. <a href="https://data.sfgov.org/Public-Safety/Police-Department-Incident-Reports-2018-to-Present/wg3w-h783">Police Department Incident Reports: 2018 to Present</a>.
+          DataSF. <a href="https://data.sfgov.org/Public-Safety/Police-Department-Incident-Reports-2018-to-Present/wg3w-h783" target="_blank" rel="noopener">Police Department Incident Reports: 2018 to Present</a>. City and County of San Francisco Open Data Portal.
         </li>
         <li>
-          Richardson, R., Schultz, J. M., Crawford, K. <em>Dirty Data, Bad Predictions: How Civil Rights Violations Impact Police Data, Predictive Policing Systems, and Justice</em>. This reading was useful as a reminder that police data is shaped by institutions, not just by crime itself.
+          Richardson, R., Schultz, J. M., Crawford, K. <em>Dirty Data, Bad Predictions: How Civil Rights Violations Impact Police Data, Predictive Policing Systems, and Justice</em>. NYU Law Review Online. A reminder that police data reflects institutional decisions — not only underlying behavior.
+        </li>
+        <li>
+          Segel, E. &amp; Heer, J. (2010). Narrative visualization: Telling stories with data. <em>IEEE Transactions on Visualization and Computer Graphics</em>, 16(6). The magazine genre framing used here comes from this paper.
         </li>
       </ol>
     </section>
+
   </main>
 
   <div class="footer">
-    Built as a short magazine-style data story for DTU. The static image is stored in the <code>images</code> folder, while the interactive visualizations are stored in <code>visualizations</code>.
+    Built for DTU 02806 Social Data Analysis &amp; Visualization &middot; Spring 2025 &middot;
+    Static figure stored in <code>images/</code> &middot; Interactive visualizations in <code>visualizations/</code>
   </div>
+
 </body>
 </html>
