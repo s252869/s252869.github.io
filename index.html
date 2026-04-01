@@ -3,469 +3,277 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>San Francisco Crime Analysis</title>
+  <title>How San Francisco Crime Composition Shifted After 2018</title>
   <style>
-    :root{
-      --bg:#0b1020;
-      --bg2:#121a2f;
-      --card:#18233d;
-      --text:#f8fafc;
-      --muted:#b6c2d9;
-      --accent:#5eead4;
-      --accent2:#93c5fd;
-      --border:rgba(255,255,255,0.08);
-      --shadow:0 12px 30px rgba(0,0,0,0.28);
-      --max:1100px;
+    :root {
+      --bg: #f7f6f2;
+      --paper: #ffffff;
+      --text: #1f2937;
+      --muted: #5b6470;
+      --line: #d9dee5;
+      --navy: #1f3b73;
+      --orange: #d97706;
+      --soft-blue: #edf3fb;
+      --maxw: 820px;
     }
 
-    *{box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
-    body{
-      margin:0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg,var(--bg),#0f172a 30%,var(--bg));
-      color:var(--text);
-      line-height:1.65;
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.72;
     }
 
-    .container{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:0 20px;
+    .hero {
+      background: linear-gradient(180deg, #f7f6f2 0%, #f3f4f7 100%);
+      padding: 72px 24px 40px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .hero{
-      padding:88px 20px 72px;
-      background:
-        radial-gradient(circle at top left, rgba(94,234,212,0.12), transparent 30%),
-        radial-gradient(circle at top right, rgba(147,197,253,0.12), transparent 30%),
-        linear-gradient(135deg, #0b1020, #16213a 60%, #0f172a);
-      border-bottom:1px solid var(--border);
+    .hero-inner,
+    .section,
+    .references,
+    .footer {
+      max-width: var(--maxw);
+      margin: 0 auto;
     }
 
-    .eyebrow{
-      display:inline-block;
-      padding:8px 12px;
-      border:1px solid var(--border);
-      border-radius:999px;
-      color:var(--accent);
-      font-size:0.9rem;
-      margin-bottom:18px;
-      background:rgba(255,255,255,0.03);
+    .eyebrow {
+      font-family: Arial, Helvetica, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.78rem;
+      color: var(--navy);
+      font-weight: 700;
+      margin-bottom: 12px;
     }
 
-    h1{
-      margin:0 0 16px;
-      font-size:clamp(2.2rem, 5vw, 4rem);
-      line-height:1.05;
-      letter-spacing:-0.02em;
+    h1, h2 { line-height: 1.15; margin: 0; }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4.1rem);
+      margin-bottom: 18px;
+      max-width: 760px;
     }
 
-    .hero p{
-      max-width:760px;
-      color:var(--muted);
-      font-size:1.08rem;
-      margin:0 0 28px;
+    .dek {
+      max-width: 740px;
+      font-size: 1.18rem;
+      color: var(--muted);
+      margin: 0;
     }
 
-    .hero-links{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:10px;
+    .meta {
+      margin-top: 18px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--muted);
+      font-size: 0.95rem;
     }
 
-    .button{
-      display:inline-block;
-      padding:12px 18px;
-      border-radius:12px;
-      text-decoration:none;
-      font-weight:700;
-      transition:transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+    .section { padding: 42px 24px; }
+
+    .section h2 {
+      font-size: 1.7rem;
+      margin-bottom: 18px;
     }
 
-    .button:hover{
-      transform:translateY(-2px);
+    .section p {
+      font-size: 1.08rem;
+      margin: 0 0 18px;
     }
 
-    .button-primary{
-      background:var(--accent);
-      color:#06211d;
+    figure {
+      margin: 32px auto 18px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px 14px 10px;
+      box-shadow: 0 12px 35px rgba(31, 41, 55, 0.05);
     }
 
-    .button-secondary{
-      background:rgba(255,255,255,0.05);
-      color:var(--text);
-      border:1px solid var(--border);
+    figure img,
+    figure iframe {
+      width: 100%;
+      display: block;
+      border: none;
+      border-radius: 12px;
+      background: white;
     }
 
-    .section{
-      padding:56px 0;
+    figure iframe { min-height: 620px; }
+
+    figcaption {
+      font-size: 0.98rem;
+      color: var(--muted);
+      margin-top: 12px;
+      padding: 0 6px 4px;
     }
 
-    .section-header{
-      margin-bottom:24px;
+    .note {
+      background: var(--soft-blue);
+      border-left: 4px solid var(--navy);
+      padding: 16px 18px;
+      border-radius: 10px;
+      margin: 26px 0;
+      font-size: 1rem;
     }
 
-    .section-header h2{
-      margin:0 0 10px;
-      font-size:1.8rem;
-      letter-spacing:-0.01em;
+    .references { padding: 28px 24px 26px; }
+
+    .references h2 {
+      font-size: 1.6rem;
+      margin-bottom: 16px;
     }
 
-    .section-header p{
-      margin:0;
-      color:var(--muted);
-      max-width:760px;
+    .references ol {
+      margin: 0;
+      padding-left: 22px;
     }
 
-    .insight-box{
-      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:22px;
-      box-shadow:var(--shadow);
-      margin-top:18px;
+    .references li {
+      margin-bottom: 10px;
+      font-size: 1rem;
+      color: var(--text);
     }
 
-    .insight-box strong{
-      color:var(--accent);
+    .references a {
+      color: var(--navy);
+      text-decoration: none;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
-      gap:24px;
-      margin-top:28px;
+    .references a:hover { text-decoration: underline; }
+
+    .footer {
+      padding: 0 24px 56px;
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.92rem;
+      max-width: var(--maxw);
+      margin: 0 auto;
     }
 
-    .card{
-      background:linear-gradient(180deg, var(--card), #13203a);
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:24px;
-      box-shadow:var(--shadow);
-      transition:transform 0.2s ease, border-color 0.2s ease;
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.94em;
+      background: #f3f4f6;
+      padding: 0.15em 0.35em;
+      border-radius: 6px;
     }
 
-    .card:hover{
-      transform:translateY(-4px);
-      border-color:rgba(94,234,212,0.25);
-    }
-
-    .card h3{
-      margin:0 0 12px;
-      font-size:1.25rem;
-    }
-
-    .card p{
-      color:var(--muted);
-      margin:0 0 14px;
-    }
-
-    .card a{
-      color:var(--accent);
-      text-decoration:none;
-      font-weight:700;
-    }
-
-    .figure-frame{
-      margin-top:16px;
-      border-radius:16px;
-      overflow:hidden;
-      border:1px solid var(--border);
-      background:#fff;
-    }
-
-    .figure-frame img{
-      display:block;
-      width:100%;
-      height:auto;
-    }
-
-    .story-block{
-      display:grid;
-      grid-template-columns:1.1fr 0.9fr;
-      gap:28px;
-      align-items:start;
-    }
-
-    .story-text{
-      background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:24px;
-      box-shadow:var(--shadow);
-    }
-
-    .story-text p{
-      color:var(--muted);
-      margin-top:0;
-    }
-
-    .story-text ul{
-      margin:14px 0 0 18px;
-      color:var(--muted);
-    }
-
-    .story-text li{
-      margin-bottom:10px;
-    }
-
-    .embed-card{
-      background:linear-gradient(180deg, var(--card), #13203a);
-      border:1px solid var(--border);
-      border-radius:20px;
-      padding:18px;
-      box-shadow:var(--shadow);
-    }
-
-    .embed-frame{
-      width:100%;
-      height:560px;
-      border:0;
-      border-radius:14px;
-      background:#fff;
-    }
-
-    .two-col{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:24px;
-    }
-
-    .note{
-      font-size:0.95rem;
-      color:#9fb0cc;
-      margin-top:12px;
-    }
-
-    footer{
-      padding:40px 0 60px;
-      color:#94a3b8;
-      text-align:center;
-    }
-
-    @media (max-width: 900px){
-      .story-block,
-      .two-col{
-        grid-template-columns:1fr;
-      }
-
-      .embed-frame{
-        height:460px;
-      }
-
-      .hero{
-        padding-top:72px;
-      }
-    }
-
-    @media (max-width: 560px){
-      .container{
-        padding:0 16px;
-      }
-
-      .card,
-      .story-text,
-      .embed-card,
-      .insight-box{
-        padding:18px;
-      }
-
-      .embed-frame{
-        height:400px;
-      }
+    @media (max-width: 700px) {
+      .hero { padding-top: 56px; }
+      .section, .references, .footer { padding-left: 18px; padding-right: 18px; }
+      figure { padding: 10px 10px 8px; }
+      figure iframe { min-height: 460px; }
     }
   </style>
 </head>
 <body>
-
   <header class="hero">
-    <div class="container">
-      <span class="eyebrow">Data Science Visualization · Week 7</span>
-      <h1>San Francisco Crime Analysis</h1>
-      <p>
-        This website presents a small set of visualizations exploring reported crime in San Francisco.
-        The project looks at how total crime changes over time, how selected crime categories develop across years,
-        and where incidents tend to cluster geographically across the city.
+    <div class="hero-inner">
+      <div class="eyebrow">San Francisco crime data story</div>
+      <h1>How San Francisco crime composition shifted after 2018</h1>
+      <p class="dek">
+        Looking at San Francisco incident reports as one total hides an important change. Around 2018, the composition of incidents begins to shift, and after 2020 that split widens further: non-personal crime stays elevated, while personal crime settles into a lower range.
       </p>
-      <div class="hero-links">
-        <a class="button button-primary" href="#overview">Start with the overview</a>
-        <a class="button button-secondary" href="#visuals">Jump to visualizations</a>
-      </div>
+      <div class="meta">By Ylfa &middot; DTU Social Data Analysis &amp; Visualization</div>
     </div>
   </header>
 
   <main>
-    <section class="section" id="overview">
-      <div class="container">
-        <div class="section-header">
-          <h2>Overview</h2>
-          <p>
-            The goal of this project is to move beyond raw counts and use visualization to understand larger patterns
-            in the data. Together, the charts and map answer three main questions: how crime changes over time,
-            which categories dominate, and where incidents are concentrated.
-          </p>
-        </div>
-
-        <div class="insight-box">
-          <strong>Main takeaway:</strong> reported crime appears relatively stable for many years, peaks around 2018,
-          and then declines noticeably after 2020. At the same time, theft remains the dominant category,
-          while the map shows that incidents cluster in dense and highly active urban areas.
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="visuals">
-      <div class="container">
-        <div class="section-header">
-          <h2>Visualizations</h2>
-          <p>
-            The site combines one static figure with two interactive visualizations. The static chart gives a quick
-            overview, while the Plotly chart and Folium map allow the viewer to explore category-level trends and
-            spatial patterns in more detail.
-          </p>
-        </div>
-
-        <div class="grid">
-          <article class="card">
-            <h3>Crimes by Year</h3>
-            <p>
-              A static matplotlib figure showing the total number of reported crimes per year.
-              This visualization gives a quick overview of the long-term development in the dataset.
-            </p>
-            <a href="images/crimes_by_year.png" target="_blank">Open full figure →</a>
-            <div class="figure-frame">
-              <img src="images/crimes_by_year.png" alt="Total reported crimes by year in San Francisco">
-            </div>
-          </article>
-
-          <article class="card">
-            <h3>Crime Trends by Category</h3>
-            <p>
-              An interactive Plotly chart comparing the development of assault, burglary, robbery,
-              theft, and vehicle theft over time.
-            </p>
-            <a href="visualizations/crime_trends.html" target="_blank">Open interactive chart →</a>
-          </article>
-
-          <article class="card">
-            <h3>Crime Location Map</h3>
-            <p>
-              An interactive Folium map showing the spatial distribution of sampled crime incidents
-              across San Francisco.
-            </p>
-            <a href="visualizations/crime_map.html" target="_blank">Open interactive map →</a>
-          </article>
-        </div>
+    <section class="section">
+      <p>
+        It is tempting to talk about crime as if it moves in one direction for the whole city. This dataset suggests something less simple. When I group incidents into <strong>personal crime</strong> and <strong>non-personal crime</strong>, a clear split starts to appear around 2018.
+      </p>
+      <p>
+        I define personal crime here as <strong>assault</strong> and <strong>robbery</strong>. I define non-personal crime as <strong>vehicle theft</strong> and <strong>burglary</strong>. This is not meant to be a perfect legal classification. It is a simple way to compare incidents that involve direct interpersonal harm with incidents that are more tied to property and opportunity.
+      </p>
+      <div class="note">
+        Important caveat: police incident data is not a perfect measure of underlying crime. It reflects reporting, recording, enforcement, and administrative systems as well as behavior itself. The story below should therefore be read as a story about <em>reported incidents</em>, not a complete measure of harm.
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <div class="story-block">
-          <div class="story-text">
-            <h2>What is happening in the yearly trend?</h2>
-            <p>
-              The yearly line chart shows that reported crime stays within a fairly similar range for much of the period
-              from 2003 to around 2017. There is then a visible peak around 2018, followed by a strong decline beginning
-              around 2019–2020.
-            </p>
-            <ul>
-              <li><strong>2003–2017:</strong> crime is relatively stable, with moderate ups and downs rather than dramatic shifts.</li>
-              <li><strong>2018 peak:</strong> the dataset reaches its highest level, suggesting a short period of increased reported activity.</li>
-              <li><strong>Post-2020 decline:</strong> reported crime drops sharply, which may reflect major changes in city activity and mobility during and after COVID.</li>
-              <li><strong>2026 value:</strong> the final year is extremely low and should be interpreted carefully, because it is likely incomplete rather than a true annual total.</li>
-            </ul>
-            <p class="note">
-              This is a good example of why context matters: a sharp drop at the end of a series does not always mean crime truly collapsed.
-              It may also mean that the latest year contains only partial data.
-            </p>
-          </div>
+      <h2>A visible split starts around 2018</h2>
+      <p>
+        The first figure tracks both groups over time and indexes them to the same starting point. That makes it easier to compare change in pattern rather than raw volume. The key point is not that one line is always larger. The key point is that the two groups stop moving together.
+      </p>
+      <p>
+        Around 2018, both groups spike and then fall, but they do not settle in the same place. After that reset, non-personal crime remains structurally above its earlier level, while personal crime drops below its older range. The period after 2020 widens that gap even more.
+      </p>
 
-          <div class="embed-card">
-            <div class="figure-frame">
-              <img src="images/crimes_by_year.png" alt="Crimes by year">
-            </div>
-          </div>
-        </div>
-      </div>
+      <figure>
+        <img src="images/plot1_final_clean.png" alt="Indexed line chart showing personal crime and non-personal crime in San Francisco over time" />
+        <figcaption>
+          <strong>Figure 1.</strong> Monthly incident levels are indexed so that the average level in 2007 equals 100. A composition shift starts around 2018, when both groups spike and then fall. After that point, non-personal crime remains elevated relative to its earlier pattern, while personal crime stays lower.
+        </figcaption>
+      </figure>
+
+      <p>
+        This is why I think the most useful summary is not that crime simply rose or fell. A better summary is that the <strong>mix</strong> of reported incidents changed. The next question is whether that shift is evenly spread across San Francisco or concentrated in particular places.
+      </p>
     </section>
 
     <section class="section">
-      <div class="container">
-        <div class="two-col">
-          <div class="story-text">
-            <h2>Category-level trends</h2>
-            <p>
-              The interactive line chart makes it easier to compare how different crime categories evolve.
-              Theft stands out as the largest category over time, while assault, burglary, robbery, and vehicle theft
-              follow much lower trajectories.
-            </p>
-            <ul>
-              <li><strong>Theft dominates:</strong> it remains the largest category throughout the period and drives much of the total volume.</li>
-              <li><strong>Different patterns by crime type:</strong> not all categories move in the same way, which shows why looking only at the total can hide important detail.</li>
-              <li><strong>Interactive value:</strong> hover labels and category toggling make it easier to isolate specific trends and compare categories directly.</li>
-            </ul>
-          </div>
+      <h2>The non-personal side of the shift is spatially uneven</h2>
+      <p>
+        To make the geographic part concrete, I focus on vehicle theft, one of the clearest non-personal categories in the dataset. The map below includes incidents from 2018 onward. What stands out is that the post-2018 pattern is not evenly spread across the city.
+      </p>
+      <p>
+        Instead, vehicle theft clusters in specific areas. That matters because it suggests that the composition shift is not only about time. It also has a spatial structure. Some parts of the city contribute much more than others to the rise in non-personal incidents.
+      </p>
 
-          <div class="embed-card">
-            <iframe class="embed-frame" src="visualizations/crime_trends.html" title="Interactive crime trends chart"></iframe>
-          </div>
-        </div>
-      </div>
+      <figure>
+        <iframe src="visualizations/plot2_vehicle_theft_post2018.html" title="Vehicle theft heatmap in San Francisco after 2018"></iframe>
+        <figcaption>
+          <strong>Figure 2.</strong> Vehicle theft after 2018 remains geographically concentrated rather than evenly distributed across San Francisco. This suggests that the rise in non-personal crime is tied to particular parts of the city, not a uniform citywide increase.
+        </figcaption>
+      </figure>
     </section>
 
     <section class="section">
-      <div class="container">
-        <div class="two-col">
-          <div class="story-text">
-            <h2>Spatial concentration of crime</h2>
-            <p>
-              The map shows the geographic spread of sampled incidents across San Francisco. Rather than being evenly
-              distributed, crime appears to cluster in central and dense urban areas.
-            </p>
-            <ul>
-              <li><strong>Visible clustering:</strong> incidents are concentrated rather than randomly spread across the city.</li>
-              <li><strong>Urban intensity matters:</strong> central districts with more activity, movement, and density appear to contain more incidents.</li>
-              <li><strong>Map exploration:</strong> zooming and panning make it possible to inspect local patterns that are impossible to see in a simple summary table.</li>
-            </ul>
-            <p class="note">
-              This map uses sampled incidents, so it is best read as a picture of spatial pattern rather than an exact count comparison between neighborhoods.
-            </p>
-          </div>
+      <h2>The shift also looks different across districts and categories</h2>
+      <p>
+        The final figure compares district-category combinations before and after the 2018 shift. Each point is one district paired with one of the four categories used in the story. Points above the diagonal became more common after 2018, while points below became less common.
+      </p>
+      <p>
+        This view matters because it moves beyond the citywide average. It shows which local combinations sit underneath the broader change in composition. If many non-personal points are above the diagonal and many personal points are below it, then the split in Figure 1 is not just a visual impression. It is being produced by multiple local changes at once.
+      </p>
 
-          <div class="embed-card">
-            <iframe class="embed-frame" src="visualizations/crime_map.html" title="Interactive crime map"></iframe>
-          </div>
-        </div>
-      </div>
+      <figure>
+        <iframe src="visualizations/plot3_before_after_scatter.html"> title="Before and after scatterplot of district-category combinations in San Francisco"></iframe>
+        <figcaption>
+          <strong>Figure 3.</strong> Each point represents a district-category combination, comparing its average annual incident level in 2007&ndash;2017 with its average annual level in 2018&ndash;2025. Points above the diagonal became more common after the shift, while points below it became less common.
+        </figcaption>
+      </figure>
+
+      <p>
+        Taken together, the three figures suggest that San Francisco did not simply experience more or less crime after 2018. Instead, the composition of reported incidents changed, and that change was carried by specific categories and specific parts of the city.
+      </p>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2>Reflection</h2>
-          <p>
-            Building this site made it clear that publishing a visualization is not just about exporting a chart.
-            It also requires structure, context, and explanation. The combination of a summary figure, an interactive
-            category chart, and a map creates a more complete view of crime patterns than any one figure alone.
-          </p>
-        </div>
-
-        <div class="insight-box">
-          For the next stage, this website can be developed into a more narrative data story by focusing on one
-          especially interesting finding, such as the post-2020 decline, the dominance of theft, or the concentration
-          of incidents in central districts.
-        </div>
-      </div>
+    <section class="references">
+      <h2>References</h2>
+      <ol>
+        <li>
+          DataSF. <a href="https://data.sfgov.org/Public-Safety/Police-Department-Incident-Reports-Historical-2003/tmnf-yvry">Police Department Incident Reports: Historical 2003 to May 2018</a>.
+        </li>
+        <li>
+          DataSF. <a href="https://data.sfgov.org/Public-Safety/Police-Department-Incident-Reports-2018-to-Present/wg3w-h783">Police Department Incident Reports: 2018 to Present</a>.
+        </li>
+        <li>
+          Richardson, R., Schultz, J. M., Crawford, K. <em>Dirty Data, Bad Predictions: How Civil Rights Violations Impact Police Data, Predictive Policing Systems, and Justice</em>. This reading was useful as a reminder that police data is shaped by institutions, not just by crime itself.
+        </li>
+      </ol>
     </section>
   </main>
 
-  <footer>
-    Built as part of a data visualization project on San Francisco crime data.
-  </footer>
-
+  <div class="footer">
+    Built as a short magazine-style data story for DTU. To publish, place this file in your GitHub Pages repository as <code>index.html</code> together with <code>plot1_final_clean.png</code>, <code>plot2_vehicle_theft_post2018.html</code>, and <code>plot3_before_after_scatter.html</code>.
+  </div>
 </body>
 </html>
